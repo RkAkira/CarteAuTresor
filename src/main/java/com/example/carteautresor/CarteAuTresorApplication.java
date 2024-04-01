@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CarteAuTresorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CarteAuTresorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CarteAuTresorApplication.class, args);
+    }
 
 }
