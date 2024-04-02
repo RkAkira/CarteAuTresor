@@ -3,8 +3,8 @@ package com.example.carteautresor;
 public class Tresor extends Plaine {
     private int nbTresor;
 
-    public Tresor(int posX, int posY, boolean vide, int nbTresor) {
-        super(posX, posY, vide);
+    public Tresor(int posX, int posY, int nbTresor) {
+        super(posX, posY, false);
         this.nbTresor = nbTresor;
     }
 

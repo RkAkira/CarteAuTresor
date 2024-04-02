@@ -13,12 +13,17 @@ public class Carte {
 
     private List<Tresor> tresors;
 
+    private List<Aventurier> aventuriers;
 
-    public Carte(int longueur, int largeur, List<Montagne> montagnes, List<Tresor> tresors) {
+    //Ajouter une liste d'aventurier sur la map
+
+
+    public Carte(int longueur, int largeur) {
         this.longueur = longueur;
         this.largeur = largeur;
-        this.montagnes = montagnes;
-        this.tresors = tresors;
+    }
+
+    public Carte() {
     }
 
     public int getLongueur() {
@@ -53,6 +58,14 @@ public class Carte {
         this.tresors = tresors;
     }
 
+    public List<Aventurier> getAventuriers() {
+        return aventuriers;
+    }
+
+    public void setAventuriers(List<Aventurier> aventuriers) {
+        this.aventuriers = aventuriers;
+    }
+
     public void displayCarte() {
         for (int i = 0; i < longueur; i++) {
             for (int j = 0; j < largeur; j++) {
@@ -70,6 +83,15 @@ public class Carte {
                     for (Tresor tresor : tresors) {
                         if (tresor.getPosX() == i && tresor.getPosY() == j) {
                             System.out.print(tresor); // Utiliser toString() ou l'objet lui-même
+                            hasElement = true;
+                            break;
+                        }
+                    }
+                }
+                if (!hasElement) {
+                    for (Aventurier aventurier : aventuriers) {
+                        if (aventurier.getPosX() == i && aventurier.getPosY() == j) {
+                            System.out.print(aventurier); // Utiliser toString() ou l'objet lui-même
                             hasElement = true;
                             break;
                         }
