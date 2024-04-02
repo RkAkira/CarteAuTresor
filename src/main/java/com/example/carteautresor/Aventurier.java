@@ -1,5 +1,6 @@
 package com.example.carteautresor;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Aventurier {
@@ -76,5 +77,97 @@ public class Aventurier {
     @Override
     public String toString() {
         return "A("+ nom +")";
+    }
+
+    public void bouger(Carte carte){
+        Iterator<String> it = mouvements.iterator();
+        outerLoop: while(it.hasNext()){
+            String mvt = it.next();
+            switch(mvt){
+                case "A":
+                    switch (orientation){
+                        case "N":
+                            posY+=1;
+                            if(verifOnTheMap(carte)){
+                                break outerLoop;
+                            }
+                            break;
+                        case "S":
+                            posY-=1;
+                            if(verifOnTheMap(carte)){
+                                break outerLoop;
+                            }
+                            break;
+                        case "O":
+                            posX-=1;
+                            if(verifOnTheMap(carte)){
+                                break outerLoop;
+                            }
+                            break;
+                        case "E":
+                            posX+=1;
+                            if(verifOnTheMap(carte)){
+                                break outerLoop;
+                            }
+                            break;
+                    }
+                    break;
+                case "G":
+                    changeOrientationG();
+                    break;
+                case "D":
+                    changeOrientationD();
+                    break;
+                default:
+                    System.out.println("Invalid movement command: " + mvt);
+            }
+        }
+    }
+
+    public boolean verifOnTheMap(Carte carte) {
+        if (posX < 0 || posX >= carte.getLongueur() || posY < 0 || posY >= carte.getLargeur()) {
+            System.out.println("Movement impossible: out of bounds");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void changeOrientationG() {
+        switch (orientation) {
+            case "N":
+                orientation = "O";
+                break;
+            case "O":
+                orientation = "S";
+                break;
+            case "S":
+                orientation = "E";
+                break;
+            case "E":
+                orientation = "N";
+                break;
+            default:
+                System.out.println("Invalid orientation: " + orientation);
+        }
+    }
+
+    public void changeOrientationD() {
+        switch (orientation) {
+            case "N":
+                orientation = "E";
+                break;
+            case "O":
+                orientation = "N";
+                break;
+            case "S":
+                orientation = "O";
+                break;
+            case "E":
+                orientation = "S";
+                break;
+            default:
+                System.out.println("Invalid orientation: " + orientation);
+        }
     }
 }
