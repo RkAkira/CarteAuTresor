@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class LectureFichier {
 
-    public void initGame(String string){
+    public Carte initGame(String string){
         List<Montagne> montagnes = new ArrayList<>();
         List<Tresor> tresors = new ArrayList<>();
         List<Aventurier> aventuriers = new ArrayList<>();
@@ -48,7 +48,7 @@ public class LectureFichier {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
+        return carte;
     }
 
 

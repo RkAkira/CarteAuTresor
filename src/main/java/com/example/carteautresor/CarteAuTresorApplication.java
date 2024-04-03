@@ -14,7 +14,11 @@ public class CarteAuTresorApplication {
 
     public static void main(String[] args) {
         LectureFichier jeu = new LectureFichier();
-        jeu.initGame("");
+        Carte carte = jeu.initGame("");
+        for(Aventurier aventurier: carte.getAventuriers()){
+            aventurier.bouger(carte);
+        }
+        carte.displayCarte();
         SpringApplication.run(CarteAuTresorApplication.class, args);
     }
 

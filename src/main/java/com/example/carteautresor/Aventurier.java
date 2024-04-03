@@ -85,31 +85,23 @@ public class Aventurier {
             String mvt = it.next();
             switch(mvt){
                 case "A":
-                    switch (orientation){
+                    switch (orientation) {
                         case "N":
-                            posY+=1;
-                            if(verifOnTheMap(carte)){
-                                break outerLoop;
-                            }
+                            posY += (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
                             break;
                         case "S":
-                            posY-=1;
-                            if(verifOnTheMap(carte)){
-                                break outerLoop;
-                            }
+                            posY -= (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
                             break;
                         case "O":
-                            posX-=1;
-                            if(verifOnTheMap(carte)){
-                                break outerLoop;
-                            }
+                            posX -= (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
                             break;
                         case "E":
-                            posX+=1;
-                            if(verifOnTheMap(carte)){
-                                break outerLoop;
-                            }
+                            posX += (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
                             break;
+                    }
+                    getTresor(carte.getTresors());
+                    if (verifOnTheMap(carte)) {
+                        break outerLoop;
                     }
                     break;
                 case "G":
@@ -128,9 +120,41 @@ public class Aventurier {
         if (posX < 0 || posX >= carte.getLongueur() || posY < 0 || posY >= carte.getLargeur()) {
             System.out.println("Movement impossible: out of bounds");
             return false;
-        } else {
+        }
+        else {
             return true;
         }
+    }
+
+    public boolean verifMontagne(List<Montagne> montagnes, String orientation){
+        for(Montagne montagne: montagnes){
+            switch (orientation){
+                case "N":
+                    if (posX == montagne.getPosX() && posY+1 == montagne.getPosY()){
+                        System.out.println("Movement impossible: vous rencontrez une montagne");
+                        return false;
+                    }
+                case "S":
+                    if (posX == montagne.getPosX() && posY-1 == montagne.getPosY()){
+                        System.out.println("Movement impossible: vous rencontrez une montagne");
+                        return false;
+                    }
+                case "O":
+                    if (posX+1 == montagne.getPosX() && posY == montagne.getPosY()){
+                        System.out.println("Movement impossible: vous rencontrez une montagne");
+                        return false;
+                    }
+                case "E":
+                    if (posX-1 == montagne.getPosX() && posY == montagne.getPosY()){
+                        System.out.println("Movement impossible: vous rencontrez une montagne");
+                        return false;
+                    }
+                default:
+                    System.out.println("Invalid movement command: " + orientation);
+            }
+
+        }
+        return true;
     }
 
     public void changeOrientationG() {
@@ -149,6 +173,18 @@ public class Aventurier {
                 break;
             default:
                 System.out.println("Invalid orientation: " + orientation);
+        }
+    }
+
+    public void getTresor(List<Tresor> tresors){
+        for(Tresor tresor: tresors){
+            int temp = tresor.getNbTresor();
+            if(posX == tresor.getPosX() && posY ==  tresor.getPosY()){
+                if(temp!=0){
+                    sacoche+=1;
+                    tresor.setNbTresor(temp-1);
+                }
+            }
         }
     }
 

@@ -89,8 +89,10 @@ public class Carte {
                     }
                 }
                 if (!hasElement) {
+                    //modification si élément est Trésor
                     for (Aventurier aventurier : aventuriers) {
                         if (aventurier.getPosX() == i && aventurier.getPosY() == j) {
+                            //verifier si la case est vide
                             System.out.print(aventurier); // Utiliser toString() ou l'objet lui-même
                             hasElement = true;
                             break;
