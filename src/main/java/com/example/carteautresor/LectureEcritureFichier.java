@@ -5,8 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Classe permettant la lecture du fichier d'entrée et l'écriture du fichier de sortie
+ */
 public class LectureEcritureFichier {
 
+    /**
+     * Methode permettant la lecture du fichier d'entrée
+     * et la création des différentes classes nécessaire au démarrage du jeu
+     * @param string
+     * @return Carte
+     */
     public Carte initGame(String string){
         List<Montagne> montagnes = new ArrayList<>();
         List<Tresor> tresors = new ArrayList<>();
@@ -50,7 +59,10 @@ public class LectureEcritureFichier {
         return carte;
     }
 
-
+    /**
+     * Methode permettant l'écriture du fichier de sortie
+     * @param carte
+     */
     public void endGame(Carte carte){
         String file = "output.txt";
         List<String> contenuFichier = new ArrayList<>();
@@ -80,7 +92,6 @@ public class LectureEcritureFichier {
         } catch (IOException e) {
             throw new RuntimeException("Erreur lors de l'écriture dans le fichier", e);
         }
-
     }
 
 }

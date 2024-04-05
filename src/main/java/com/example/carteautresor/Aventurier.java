@@ -3,6 +3,9 @@ package com.example.carteautresor;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Classe répresentant un aventurier
+ */
 public class Aventurier {
 
     private String nom;
@@ -17,6 +20,14 @@ public class Aventurier {
 
     private int sacoche;
 
+    /**
+     * Constructeur de la classe
+     * @param nom
+     * @param latitude
+     * @param longitude
+     * @param orientation
+     * @param mouvements
+     */
     public Aventurier(String nom, int latitude, int longitude, String orientation, List<String> mouvements) {
         this.nom = nom;
         this.latitude = latitude;
@@ -26,6 +37,10 @@ public class Aventurier {
         this.sacoche = 0;
     }
 
+    /**
+     * Getter
+     * @return nom
+     */
     public String getNom() {
         return nom;
     }
@@ -34,51 +49,96 @@ public class Aventurier {
         this.nom = nom;
     }
 
+    /**
+     * Getter
+     * @return latitude
+     */
     public int getLatitude() {
         return latitude;
     }
 
+    /**
+     * Setter
+     * @param latitude
+     */
     public void setLatitude(int latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public int getLongitude() {
         return longitude;
     }
 
+    /**
+     * Setter
+     * @param longitude
+     */
     public void setLongitude(int longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public String getOrientation() {
         return orientation;
     }
 
+    /**
+     * Setter
+     * @param orientation
+     */
     public void setOrientation(String orientation) {
         this.orientation = orientation;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public List<String> getMouvements() {
         return mouvements;
     }
 
+    /**
+     * Setter
+     * @param mouvements
+     */
     public void setMouvements(List<String> mouvements) {
         this.mouvements = mouvements;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public int getSacoche() {
         return sacoche;
     }
 
+    /**
+     * Setter
+     * @param sacoche
+     */
     public void setSacoche(int sacoche) {
         this.sacoche = sacoche;
     }
+
 
     @Override
     public String toString() {
         return " ("+ nom +") ";
     }
 
+    /**
+     * Fonction permettant de simuler le mouvement d'un aventurier
+     * @param carte
+     */
     public void bouger(Carte carte){
         carte.displayCarte();
         System.out.println();
@@ -118,6 +178,11 @@ public class Aventurier {
         }
     }
 
+    /**
+     * Verifie la présence de l'aventurier sur la map
+     * @param carte
+     * @return
+     */
     public boolean verifOnTheMap(Carte carte) {
         if (latitude < 0 || latitude >= carte.getLongueur() || longitude < 0 || longitude >= carte.getLargeur()) {
             System.out.println("Movement impossible: out of bounds");
@@ -128,6 +193,12 @@ public class Aventurier {
         }
     }
 
+    /**
+     * Verifie la présence d'une montagne en face de l'aventurier
+     * @param montagnes
+     * @param orientation
+     * @return
+     */
     public boolean verifMontagne(List<Montagne> montagnes, String orientation){
         for(Montagne montagne: montagnes){
             switch (orientation){
@@ -162,6 +233,9 @@ public class Aventurier {
         return true;
     }
 
+    /**
+     * Change l'orientation de l'aventurier vers la Gauche
+     */
     public void changeOrientationG() {
         switch (orientation) {
             case "N":
@@ -181,6 +255,9 @@ public class Aventurier {
         }
     }
 
+    /**
+     * Change l'orientation de l'aventurier vers la Droite
+     */
     public void changeOrientationD() {
         switch (orientation) {
             case "N":
@@ -200,6 +277,10 @@ public class Aventurier {
         }
     }
 
+    /**
+     * Recupère 1 trésor sur la case où l'aventurier est présent
+     * @param tresors
+     */
     public void getTresor(List<Tresor> tresors){
         for(Tresor tresor: tresors){
             int temp = tresor.getNbTresor();
