@@ -7,7 +7,7 @@ public class CarteAuTresorApplication {
 
     public static void main(String[] args) {
         LectureEcritureFichier jeu = new LectureEcritureFichier();
-        Carte carte = jeu.initGame("C:\\Users\\retya\\OneDrive\\Documents\\DocEfrei\\UNLV\\docs\\test.txt");
+        Carte carte = jeu.initGame("test.txt");
         for(Aventurier aventurier: carte.getAventuriers()){
             aventurier.bouger(carte);
         }
