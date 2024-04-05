@@ -1,6 +1,5 @@
 package com.example.carteautresor;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class Carte {
@@ -81,7 +80,7 @@ public class Carte {
                 // Si aucune montagne n'est trouvée, vérifier s'il y a un trésor
                 if (!hasElement) {
                     for (Tresor tresor : tresors) {
-                        if (tresor.getPosX() == i && tresor.getPosY() == j) {
+                        if (tresor.getPosX() == i && tresor.getPosY() == j && tresor.getNbTresor()!=0) {
                             System.out.print(tresor); // Utiliser toString() ou l'objet lui-même
                             hasElement = true;
                             break;
@@ -91,8 +90,7 @@ public class Carte {
                 if (!hasElement) {
                     //modification si élément est Trésor
                     for (Aventurier aventurier : aventuriers) {
-                        if (aventurier.getPosX() == i && aventurier.getPosY() == j) {
-                            //verifier si la case est vide
+                        if (aventurier.getLatitude() == i && aventurier.getLongitude() == j) {
                             System.out.print(aventurier); // Utiliser toString() ou l'objet lui-même
                             hasElement = true;
                             break;
@@ -101,11 +99,21 @@ public class Carte {
                 }
                 // Si aucune montagne ni trésor n'est trouvé, afficher un point
                 if (!hasElement) {
-                    System.out.print(".");
+                    System.out.print("   .   ");
                 }
             }
             System.out.println(); // Aller à la ligne après chaque ligne de la carte
         }
     }
 
+    @Override
+    public String toString() {
+        return "Carte{" +
+                "longueur=" + longueur +
+                ", largeur=" + largeur +
+                ", montagnes=" + montagnes +
+                ", tresors=" + tresors +
+                ", aventuriers=" + aventuriers +
+                '}';
+    }
 }

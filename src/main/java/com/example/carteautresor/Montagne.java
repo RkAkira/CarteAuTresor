@@ -9,6 +9,6 @@ public class Montagne extends Plaine {
 
     @Override
     public String toString() {
-        return "M";
+        return "  M  ";
     }
 }

@@ -7,9 +7,9 @@ public class Aventurier {
 
     private String nom;
 
-    private int posX;
+    private int latitude;
 
-    private int posY;
+    private int longitude;
 
     private String orientation;
 
@@ -17,10 +17,10 @@ public class Aventurier {
 
     private int sacoche;
 
-    public Aventurier(String nom, int posX, int posY, String orientation, List<String> mouvements) {
+    public Aventurier(String nom, int latitude, int longitude, String orientation, List<String> mouvements) {
         this.nom = nom;
-        this.posX = posX;
-        this.posY = posY;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.orientation = orientation;
         this.mouvements = mouvements;
         this.sacoche = 0;
@@ -34,20 +34,20 @@ public class Aventurier {
         this.nom = nom;
     }
 
-    public int getPosX() {
-        return posX;
+    public int getLatitude() {
+        return latitude;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
+    public void setLatitude(int latitude) {
+        this.latitude = latitude;
     }
 
-    public int getPosY() {
-        return posY;
+    public int getLongitude() {
+        return longitude;
     }
 
-    public void setPosY(int posY) {
-        this.posY = posY;
+    public void setLongitude(int longitude) {
+        this.longitude = longitude;
     }
 
     public String getOrientation() {
@@ -76,10 +76,12 @@ public class Aventurier {
 
     @Override
     public String toString() {
-        return "A("+ nom +")";
+        return " ("+ nom +") ";
     }
 
     public void bouger(Carte carte){
+        carte.displayCarte();
+        System.out.println();
         Iterator<String> it = mouvements.iterator();
         outerLoop: while(it.hasNext()){
             String mvt = it.next();
@@ -87,20 +89,20 @@ public class Aventurier {
                 case "A":
                     switch (orientation) {
                         case "N":
-                            posY += (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
+                            latitude -= (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
                             break;
                         case "S":
-                            posY -= (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
+                            latitude += (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
                             break;
                         case "O":
-                            posX -= (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
+                            longitude -= (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
                             break;
                         case "E":
-                            posX += (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
+                            longitude += (verifMontagne(carte.getMontagnes(), orientation)) ? 1 : 0;
                             break;
                     }
                     getTresor(carte.getTresors());
-                    if (verifOnTheMap(carte)) {
+                    if (!verifOnTheMap(carte)) {
                         break outerLoop;
                     }
                     break;
@@ -117,7 +119,7 @@ public class Aventurier {
     }
 
     public boolean verifOnTheMap(Carte carte) {
-        if (posX < 0 || posX >= carte.getLongueur() || posY < 0 || posY >= carte.getLargeur()) {
+        if (latitude < 0 || latitude >= carte.getLongueur() || longitude < 0 || longitude >= carte.getLargeur()) {
             System.out.println("Movement impossible: out of bounds");
             return false;
         }
@@ -130,29 +132,32 @@ public class Aventurier {
         for(Montagne montagne: montagnes){
             switch (orientation){
                 case "N":
-                    if (posX == montagne.getPosX() && posY+1 == montagne.getPosY()){
+                    if (latitude -1 == montagne.getPosX() && longitude == montagne.getPosY()){
                         System.out.println("Movement impossible: vous rencontrez une montagne");
                         return false;
                     }
+                    break;
                 case "S":
-                    if (posX == montagne.getPosX() && posY-1 == montagne.getPosY()){
+                    if (latitude +1 == montagne.getPosX() && longitude == montagne.getPosY()){
                         System.out.println("Movement impossible: vous rencontrez une montagne");
                         return false;
                     }
+                    break;
                 case "O":
-                    if (posX+1 == montagne.getPosX() && posY == montagne.getPosY()){
+                    if (latitude == montagne.getPosX() && longitude -1 == montagne.getPosY()){
                         System.out.println("Movement impossible: vous rencontrez une montagne");
                         return false;
                     }
+                    break;
                 case "E":
-                    if (posX-1 == montagne.getPosX() && posY == montagne.getPosY()){
+                    if (latitude == montagne.getPosX() && longitude +1 == montagne.getPosY()){
                         System.out.println("Movement impossible: vous rencontrez une montagne");
                         return false;
                     }
+                    break;
                 default:
                     System.out.println("Invalid movement command: " + orientation);
             }
-
         }
         return true;
     }
@@ -176,18 +181,6 @@ public class Aventurier {
         }
     }
 
-    public void getTresor(List<Tresor> tresors){
-        for(Tresor tresor: tresors){
-            int temp = tresor.getNbTresor();
-            if(posX == tresor.getPosX() && posY ==  tresor.getPosY()){
-                if(temp!=0){
-                    sacoche+=1;
-                    tresor.setNbTresor(temp-1);
-                }
-            }
-        }
-    }
-
     public void changeOrientationD() {
         switch (orientation) {
             case "N":
@@ -204,6 +197,18 @@ public class Aventurier {
                 break;
             default:
                 System.out.println("Invalid orientation: " + orientation);
+        }
+    }
+
+    public void getTresor(List<Tresor> tresors){
+        for(Tresor tresor: tresors){
+            int temp = tresor.getNbTresor();
+            if(latitude == tresor.getPosX() && longitude ==  tresor.getPosY()){
+                if(temp!=0){
+                    sacoche+=1;
+                    tresor.setNbTresor(temp-1);
+                }
+            }
         }
     }
 }

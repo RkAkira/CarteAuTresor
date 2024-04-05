@@ -18,6 +18,6 @@ public class Tresor extends Plaine {
 
     @Override
     public String toString() {
-        return "T("+ nbTresor +")";
+        return " T("+ nbTresor +") ";
     }
 }
