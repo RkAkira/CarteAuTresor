@@ -13,7 +13,6 @@ public class CarteAuTresorApplication {
         }
         carte.displayCarte();
         jeu.endGame(carte);
-        //SpringApplication.run(CarteAuTresorApplication.class, args);
     }
 
 }
